@@ -6010,6 +6010,14 @@ height: 100vh;
 .cover-radius-gx{
   border-radius: 25px;
 }
+
+.fs-30-gx{
+  font-size: 1.875rem;
+}
+
+.me-gx{
+  margin-right: 1.25rem;
+}
 /* End Video Landing  --GX-- */
 
 
