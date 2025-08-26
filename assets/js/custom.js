@@ -2614,5 +2614,21 @@
 
         }
 
+        // phone -GX
+
+        fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+    let country = data.country_name; // Canada أو Egypt
+    let phoneElement = document.getElementById("phone");
+
+    if (country === "Canada") {
+      phoneElement.textContent = "+1 123-456-7890"; // رقم كندا
+    } else if (country === "Egypt") {
+      phoneElement.textContent = "+20 100-123-4567"; // رقم مصر
+    } else {
+      phoneElement.textContent = "+1 123-456-7890"; // رقم افتراضي
+    }
+  });
     }
 )( jQuery );
