@@ -2623,11 +2623,9 @@
     let phoneElement = document.getElementById("phone");
 
     if (country === "Canada") {
-      phoneElement.textContent = "+1 123-456-7890"; // رقم كندا
-    } else if (country === "Egypt") {
-      phoneElement.textContent = "+20 100-123-4567"; // رقم مصر
-    } else {
-      phoneElement.textContent = "+1 123-456-7890"; // رقم افتراضي
+      phoneElement.textContent = "+1 (647) 570 - 0334"; // رقم كندا
+    }  else {
+      phoneElement.textContent = "+1 (647) 570 - 0334"; // رقم افتراضي
     }
   });
     }
