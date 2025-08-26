@@ -2619,14 +2619,46 @@
         fetch("https://ipapi.co/json/")
   .then(res => res.json())
   .then(data => {
-    let country = data.country_name; // Canada أو Egypt
-    let phoneElement = document.getElementById("phone");
+    let country = data.country_name; 
+    let phoneContainer = document.getElementById("phone-container");
 
     if (country === "Canada") {
-      phoneElement.textContent = "+1 (647) 570 - 0334"; // رقم كندا
-    }  else {
-      phoneElement.textContent = "+1 (647) 570 - 0334"; // رقم افتراضي
+      // رقم كندا فقط
+      phoneContainer.innerHTML = `
+        <p class="links over-hidden">
+          <a href="tel:+11234567890" data-hover-text="+1 123-456-7890" class="link-hover">
+            +1 123-456-7890
+          </a>
+        </p>
+      `;
+    } else {
+      // مصر أو أي دولة تانية → الرقمين
+      phoneContainer.innerHTML = `
+        <p class="links over-hidden">
+          <a href="tel:+201001234567" data-hover-text="+20 100-123-4567" class="link-hover">
+            +20 100-123-4567
+          </a>
+        </p>
+        <p class="links over-hidden">
+          <a href="tel:+11234567890" data-hover-text="+1 123-456-7890" class="link-hover">
+            +1 123-456-7890
+          </a>
+        </p>
+      `;
     }
+  })
+  .catch(err => {
+    console.error("Error fetching location:", err);
+    document.getElementById("phone-container").innerHTML = `
+      <p class="links over-hidden">
+        <a href="tel:+11234567890" data-hover-text="+1 123-456-7890" class="link-hover">
+          +1 123-456-7890
+        </a>
+      </p>
+    `;
   });
+
+
+
     }
 )( jQuery );

@@ -6018,6 +6018,11 @@ height: 100vh;
 .me-gx{
   margin-right: 1.25rem;
 }
+.phone-link {
+  display: block !important;      /* يخلي اللينك ياخد صف كامل */
+
+}
+
 /* End Video Landing  --GX-- */
 
 
