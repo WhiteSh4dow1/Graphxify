@@ -155,12 +155,12 @@
                             // If we have messageAlert and messageText
                             if ( messageAlert && messageText ) {
                                 // inject the alert to .messages div in our form
-                                contact_form.find( ".messages" ).html( alertBox );
+                                contact_form.find( ".messages" )( alertBox );
                                 // empty the form
                                 contact_form[ 0 ].reset();
                             }
                             setTimeout( function () {
-                                contact_form.find( ".messages" ).html( "" );
+                                contact_form.find( ".messages" )( "" );
                             }, 3000 );
 
                         },
@@ -435,7 +435,7 @@
                         scrollTo: { y: effectS ? $effectScroll.getScrollbar().limit.y : document.body.scrollHeight },
                     } );
 
-                    // title.find('.title').html( title.find( 'span.title-stroke' ).html() );
+                    // title.find('.title')( title.find( 'span.title-stroke' )() );
                     // dsnGrid.convertTextLine(title.find('.title'));
                     tl.call( this.dsnCreateElement.bind( this, img, active, title.find( '.title' ), title, {
                         before: function ( container, img_move, title_move ) {
@@ -651,7 +651,7 @@
 
                     tl.call( function () {
                         dsnGrid.initAjax( data );
-                        this.mainRoot.html( $( data ).filter( main_root ).html() );
+                        this.mainRoot( $( data ).filter( main_root )() );
                         reloadAjax( true ).catch( $err => {
                             console.error( $err );
                         } );
@@ -1370,7 +1370,7 @@
 
 
                                         _target.$this.find( '.circular-item .circle' ).circleProgress( {} ).on( 'circle-animation-progress', function ( event, progress ) {
-                                            $( this ).find( 'h4' ).html( Math.round( ( event.target.dataset.value * progress ) * 100 ) + "%" );
+                                            $( this ).find( 'h4' )( Math.round( ( event.target.dataset.value * progress ) * 100 ) + "%" );
                                         } );
                                     } );
                                 }
@@ -1813,7 +1813,7 @@
 
                         if ( inner.hasClass( 'dsn-webgl' ) ) {
                             $slidObject.initWebgel( $( this ) ).then( ( $obj ) => {
-                                dsn_slider.find( ".control-nav .slider-total-index" ).html( dsnGrid.numberText( $obj.imgs.length ) );
+                                dsn_slider.find( ".control-nav .slider-total-index" )( dsnGrid.numberText( $obj.imgs.length ) );
                                 dsnGrid.WebGLDistortionHoverEffects( $obj, {
                                     parent: inner,
                                     vertical: !horizontal,
@@ -1908,7 +1908,7 @@
                             type: "custom",
                             clickable: true,
                             renderCustom: function ( swiper, current, total ) {
-                                dsn_slider.find( ".slider-total-index" ).html( dsnGrid.numberText( total ) );
+                                dsn_slider.find( ".slider-total-index" )( dsnGrid.numberText( total ) );
                                 return dsnGrid.numberText( current );
                             },
                         },
@@ -2042,7 +2042,7 @@
                     let $this = this;
 
 
-                    dsn_slider.find( ".control-nav .slider-current-index" ).html( dsnGrid.numberText( current + 1 ) );
+                    dsn_slider.find( ".control-nav .slider-current-index" )( dsnGrid.numberText( current + 1 ) );
                     let contentOld = dsn_slider.find( ".dsn-slider-content .dsn-active" );
                     let content_letterOld = contentOld.find( ".dsn-chars-wrapper" );
 
@@ -2603,7 +2603,7 @@
                 const $title = dsnGrid.getData( this, 'title' );
                 const _target = $( this ).offset().top;
                 const _element = $( '<div class="dsn-link-paginate text-transform-upper"></div>' );
-                _element.html( $title );
+                _element( $title );
                 $cont.append( _element );
                 _element.on( 'click', function () {
 
