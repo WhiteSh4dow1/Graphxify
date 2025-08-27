@@ -2614,51 +2614,68 @@
 
         }
 
-        // phone -GX
+// phone -GX
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("https://ipapi.co/json/")
+    .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then((data) => {
+      // use country code
+      const countryCode = String(data.country_code || data.country || "").toUpperCase();
+      const isCanada = countryCode === "CA";
 
-        fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-    let country = data.country_name; 
-    let phoneContainer = document.getElementById("phone-container");
+      renderPhones(isCanada);
+    })
+    .catch((err) => {
+      console.warn("GeoIP failed, showing BOTH numbers as fallback:", err);
+      // display the 2 numbs if falls back in case if it's not CA
+      renderPhones(false);
+    });
 
-    if (country === "Canada") {
-      // رقم كندا فقط
-      phoneContainer.innerHTML = `
-        <p class="links over-hidden">
-          <a href="tel:+11234567890" data-hover-text="+1 123-456-7890" class="link-hover">
-            +1 123-456-7890
-          </a>
-        </p>
-      `;
-    } else {
-      // مصر أو أي دولة تانية → الرقمين
-      phoneContainer.innerHTML = `
-        <p class="links over-hidden">
-          <a href="tel:+201001234567" data-hover-text="+20 100-123-4567" class="link-hover">
-            +20 100-123-4567
-          </a>
-        </p>
-        <p class="links over-hidden">
-          <a href="tel:+11234567890" data-hover-text="+1 123-456-7890" class="link-hover">
-            +1 123-456-7890
-          </a>
-        </p>
-      `;
-    }
-  })
-  .catch(err => {
-    console.error("Error fetching location:", err);
-    document.getElementById("phone-container").innerHTML = `
-      <p class="links over-hidden">
-        <a href="tel:+11234567890" data-hover-text="+1 123-456-7890" class="link-hover">
-          +1 123-456-7890
-        </a>
-      </p>
-    `;
-  });
+  function renderPhones(isCanada) {
+    document.querySelectorAll(".phone-container").forEach((container) => {
+      const egyptDisplay = container.getAttribute("data-egypt") || "";
+      const canadaDisplay = container.getAttribute("data-canada") || "";
 
+      // better to start the number with the correct country code to with the tel
+      const egyptHref = toTelHref(egyptDisplay);
+      const canadaHref = toTelHref(canadaDisplay);
 
+      if (isCanada) {
+        // Canada Only
+        container.innerHTML = `
+          <p class="links over-hidden">
+            <a href="${canadaHref}" data-hover-text="${canadaDisplay}" class="link-hover pb-2">
+              ${canadaDisplay}
+            </a>
+          </p>
+        `;
+      } else {
+        // Any other countries
+        container.innerHTML = `
+          <p class="links over-hidden">
+            <a href="${canadaHref}" data-hover-text="${canadaDisplay}" class="link-hover pb-2">
+              ${canadaDisplay}
+            </a>
+          </p>
+
+          <p class="links over-hidden">
+            <a href="${egyptHref}" data-hover-text="${egyptDisplay}" class="link-hover pb-1">
+              ${egyptDisplay}
+            </a>
+          </p>
+        `;
+      }
+    });
+  }
+
+  // fixing number style to correct to right number +164...(+20 100-... → tel:+20100...)
+  function toTelHref(str) {
+    //clears the spaces or + signs
+    const cleaned = String(str).replace(/[^\d+]/g, "");
+    // adds + if nums aren't starting with + but add the + bettter
+    return `tel:${cleaned.startsWith("+") ? cleaned : cleaned}`;
+  }
+});
 
     }
 )( jQuery );
