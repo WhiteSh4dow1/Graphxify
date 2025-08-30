@@ -1,24 +1,7 @@
-# Enable Rewrite Engine
-RewriteEngine on
-
-# --- Hotlink Protection (Allow only graphxify.com + www.graphxify.com) ---
-RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?graphxify\.com [NC]
-RewriteRule \.(jpg|jpeg|gif|png|bmp|webp|avif)$ - [F,NC]
-
-# --- Force HTTPS + www ---
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.graphxify.com/$1 [R,L]
-
-# --- Serve .html if no extension is given ---
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html [NC,L]
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
-# --- Serve .php if no extension is given ---
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php [NC,L]
-
-# --- Custom 404 page ---
 ErrorDocument 404 /404.html
 

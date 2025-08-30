@@ -2147,7 +2147,7 @@ header .scroll-d img {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-            bottom: 75px; /*Added GX*/
+            bottom: 70px;
   }
 }
 .main-slider .control-nav .slider-counter {
